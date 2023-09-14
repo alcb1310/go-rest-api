@@ -10,10 +10,10 @@ func NewRouter() router {
 	return router{http.NewServeMux()}
 }
 
-func (r *router) Prefix(path string) *router {
+func (r *router) Prefix(path string) router {
 	mux := NewRouter()
 	var handler http.Handler = mux
 
 	r.Handle(path+"/", http.StripPrefix(path, handler))
-	return r
+	return mux
 }
