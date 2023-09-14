@@ -39,6 +39,7 @@ func main() {
 
 	router := api.NewRouter()
 	router.Prefix("/auth").AuthEndpoints()
+	router.Prefix("/users").UserEndpoints()
 
 	if local {
 		srv = &http.Server{
@@ -47,8 +48,21 @@ func main() {
 			ReadTimeout:  time.Second * 10,
 			WriteTimeout: time.Second * 10,
 		}
+		logz.Info("Server is running")
+		logz.Fatal(srv.ListenAndServe())
+	} else {
+		srv = &http.Server{
+			Addr:         ":443",
+			Handler:      router,
+			ReadTimeout:  time.Second * 10,
+			WriteTimeout: time.Second * 10,
+		}
+
+		cert := ""
+		certKey := ""
+
+		logz.Info("Server is running")
+		logz.Fatal(srv.ListenAndServeTLS(cert, certKey))
 	}
 
-	logz.Info("Server is running")
-	logz.Fatal(srv.ListenAndServe())
 }
