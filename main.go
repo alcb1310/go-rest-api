@@ -18,9 +18,12 @@ func init() {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		logz.Fatal("Environment variables couldn'g be loaded")
+	mode := os.Getenv("GO_ENV")
+	if mode != "production" {
+		err := godotenv.Load()
+		if err != nil {
+			logz.Fatal("Environment variables couldn'g be loaded")
+		}
 	}
 
 	port, hasPort := os.LookupEnv("PORT")
