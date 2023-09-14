@@ -38,6 +38,7 @@ func main() {
 	}
 
 	router := api.NewRouter()
+	router.Prefix("/auth")
 
 	if local {
 		srv = &http.Server{
