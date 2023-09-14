@@ -1,0 +1,6 @@
+# log directory 
+log/
+
+# environment variables
+.env
+.env.local
