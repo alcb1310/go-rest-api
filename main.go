@@ -38,7 +38,9 @@ func main() {
 	}
 
 	router := api.NewRouter()
-	router.ApiVersion(1).Prefix("/auth").AuthEndpoints()
+	ver := router.ApiVersion(1)
+	ver.Prefix("/auth").AuthEndpoints()
+	ver.Prefix("/users").UserEndpoints()
 	// router.Prefix("/users").UserEndpoints()
 
 	if local {
